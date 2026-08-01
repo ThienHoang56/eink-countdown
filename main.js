@@ -87,18 +87,15 @@ function calculateRemaining() {
   return diffSeconds;
 }
 
-// Khởi tạo giờ đích = Hiện tại + 1.5 tiếng
-// Load data from LocalStorage or set defaults
-if (localStorage.getItem('eink_target')) {
-  targetDatetimeInput.value = localStorage.getItem('eink_target');
-} else {
-  const initDate = new Date(new Date().getTime() + 90 * 60000);
-  initDate.setMinutes(initDate.getMinutes() - initDate.getTimezoneOffset());
-  targetDatetimeInput.value = initDate.toISOString().slice(0, 16);
-}
+// Hardcoded values as requested
+taskInput.value = "PRN222 PE + FE";
+targetDatetimeInput.value = "2026-08-02T07:00";
 
-if (localStorage.getItem('eink_task')) taskInput.value = localStorage.getItem('eink_task');
-if (localStorage.getItem('eink_exclude')) excludeHoursInput.value = localStorage.getItem('eink_exclude');
+if (localStorage.getItem('eink_exclude')) {
+  excludeHoursInput.value = localStorage.getItem('eink_exclude');
+} else {
+  excludeHoursInput.value = "9";
+}
 
 calculateRemaining();
 drawPreview();
