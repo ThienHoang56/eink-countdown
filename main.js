@@ -212,13 +212,13 @@ async function uploadToEink() {
       packet[3] = i & 0xFF;
       packet.set(buffer.subarray(i, i + len), 4);
       
-      await epdCharacteristic.writeValue(packet);
+      await epdCharacteristic.writeValueWithResponse(packet);
       await new Promise(r => setTimeout(r, 20));
       statusDiv.innerText = `Sending: ${Math.round((i/totalBytes)*100)}%`;
     }
     
     statusDiv.innerText = "Sending Refresh Command...";
-    await epdCharacteristic.writeValue(new Uint8Array([0x01]));
+    await epdCharacteristic.writeValueWithResponse(new Uint8Array([0x01]));
     statusDiv.innerText = "Sync complete! Next update in 10 minutes.";
   } catch (error) {
     statusDiv.innerText = `Sync failed: ${error.message}`;
